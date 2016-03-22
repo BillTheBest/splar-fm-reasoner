@@ -1,5 +1,6 @@
 package splar.core.fm.configuration;
 
+import java.lang.reflect.Constructor;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +16,12 @@ public abstract class ConfigurationEngine {
 	protected List<ConfigurationStep> steps;
 
 	public ConfigurationEngine(String featureModelURL) throws ConfigurationEngineException {
+		this(featureModelURL, XMLFeatureModel.class);
+	}
+
+	public ConfigurationEngine(String featureModelURL, Class<? extends FeatureModel> featureModelClass) throws ConfigurationEngineException {
 		this.steps = new LinkedList<ConfigurationStep>();
-		this.model = loadFeatureModelFromURL(featureModelURL);
+		this.model = loadFeatureModelFromURL(featureModelURL, featureModelClass);
 	}
 	
 	public ConfigurationEngine(FeatureModel model) throws ConfigurationEngineException {
@@ -24,11 +29,13 @@ public abstract class ConfigurationEngine {
 		this.model = model;
 	}
 
-	protected FeatureModel loadFeatureModelFromURL(String featureModelURL) throws ConfigurationEngineException {
+	protected FeatureModel loadFeatureModelFromURL(String featureModelURL, Class<? extends FeatureModel> featureModelClass) throws ConfigurationEngineException {
 		FeatureModel model = null;
-    	try {
-    		model = new XMLFeatureModel(featureModelURL, XMLFeatureModel.SET_ID_AUTOMATICALLY);
-    		model.loadModel();				    		
+		try {
+			Constructor ctor = featureModelClass.getDeclaredConstructor(String.class);
+			ctor.setAccessible(true);
+			model = (FeatureModel) ctor.newInstance(featureModelURL);
+			model.loadModel();
 		} catch (Exception e) {
 			throw new ConfigurationEngineException("Problems loading model. Please check if model follows SXFM specification");
 		}

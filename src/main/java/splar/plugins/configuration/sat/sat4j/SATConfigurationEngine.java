@@ -18,6 +18,7 @@ import splar.core.fm.FTTraversals;
 import splar.core.fm.FeatureGroup;
 import splar.core.fm.FeatureModel;
 import splar.core.fm.FeatureTreeNode;
+import splar.core.fm.XMLFeatureModel;
 import splar.core.fm.configuration.ConfigurationEngine;
 import splar.core.fm.configuration.ConfigurationEngineException;
 import splar.core.fm.configuration.ConfigurationStep;
@@ -27,10 +28,13 @@ import splar.plugins.reasoners.sat.sat4j.StaticVariableOrderSAT;
 public class SATConfigurationEngine extends ConfigurationEngine {
 
 	protected FMReasoningWithSAT reasoner;		// SAT solver
-	
-	public SATConfigurationEngine(String featureModelURL) throws ConfigurationEngineException {
 
-		super(featureModelURL);
+	public SATConfigurationEngine(String featureModelURL) throws ConfigurationEngineException {
+		this (featureModelURL, XMLFeatureModel.class);
+	}
+	
+	public SATConfigurationEngine(String featureModelURL, Class<? extends FeatureModel> featureModelClass) throws ConfigurationEngineException {
+		super(featureModelURL, featureModelClass);
 		
 		reasoner = null;
 		

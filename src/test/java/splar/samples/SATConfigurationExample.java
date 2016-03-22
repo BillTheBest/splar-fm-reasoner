@@ -33,7 +33,7 @@ public class SATConfigurationExample {
 		try {
 			
 			// Feature model path
-			String featureModelURL = "src/test/resources/models/simple_bike_fm.xml";
+			String featureModelURL = "Splar/src/test/resources/models/simple_bike_fm.xml";
 			
 			// Creates the SAT configuration engine
 			ConfigurationEngine satConfEngine = new SATConfigurationEngine(featureModelURL);

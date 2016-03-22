@@ -31,7 +31,7 @@ public class XMLFeatureModel extends FeatureModel {
 	public static final int USE_VARIABLE_NAME_AS_ID = 10;
 	public static final int SET_ID_AUTOMATICALLY = 20;
 	
-	private String fileName;
+	protected String fileName;
 	private int idCounter;
 	private int idCreationStrategy;
 

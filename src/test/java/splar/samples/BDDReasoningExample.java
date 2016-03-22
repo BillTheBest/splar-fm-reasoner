@@ -32,7 +32,7 @@ public class BDDReasoningExample {
 		try {
 			
 			// Feature model path
-			String featureModelPath = "src/test/resources/models/simple_bike_fm.xml";
+			String featureModelPath = "Splar/src/test/resources/models/simple_bike_fm.xml";
 			
 			// Create feature model object from an XML file (SXFM format - see www.splot-research.org for details)	
 			// If an identifier is not provided for a feature use the feature name as id
