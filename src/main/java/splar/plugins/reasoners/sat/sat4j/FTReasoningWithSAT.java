@@ -341,11 +341,11 @@ public class FTReasoningWithSAT extends ReasoningWithSAT {
 					setVariableAndValueOrderForSAT(domainTable, varIndex, testValues, optimizations);
 					
 //					System.out.println("    >> " + value);
-					
+
 					try {
 						solver.assume(value==1 ? LiteralsUtils.posLit(varIndex) : LiteralsUtils.negLit(varIndex));
 //						solver.propagate();
-					} catch (Exception e) {
+					} catch (AssertionError e) {
 						e.printStackTrace();
 						// TODO: handle exception
 					}
